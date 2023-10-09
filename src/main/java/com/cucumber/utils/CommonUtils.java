@@ -62,7 +62,7 @@ public class CommonUtils {
 	 * @param int maximum number
 	 */
 	public static int generateRandomNumber(int minNum, int maxNum) {
-		return new Random().nextInt();
+		return new Random().nextInt((maxNum - minNum) + 1) + minNum;
 	}
 
 	public static int getTextAnalysisScore(String first_text, String second_text) {

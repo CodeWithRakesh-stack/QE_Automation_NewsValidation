@@ -138,8 +138,8 @@
 				<version>3.0.0-M8</version>
 				<configuration>
 					<suiteXmlFiles>
-						<suiteXmlFile>need to proivde test.xml file</suiteXmlFile>
-					</suiteXmlFiles>
+							<suiteXmlFile>testng.xml</suiteXmlFile>
+                     </suiteXmlFiles>					
 				</configuration>
 			</plugin>
 

@@ -23,9 +23,4 @@ Follow these steps to get started with the project:
 3. Run the tests using TestNG: `mvn test`
 
 ## Usage
-
-Explain how to use your project, provide code examples, and any other relevant information.
-
-## License
-
-This project is licensed under the XYZ License - see the [LICENSE.md](LICENSE.md) file for details.
+Need to update 

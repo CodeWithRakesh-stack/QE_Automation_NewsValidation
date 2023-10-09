@@ -12,7 +12,7 @@ Before running this project, make sure you have the following prerequisites inst
 
 4. **Cucumber**: Cucumber need to install in eclipse 
 
-## Getting Started
+## To run the test, Please follow below step
 
 Follow these steps to get started with the project:
 

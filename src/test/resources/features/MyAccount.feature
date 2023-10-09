@@ -8,15 +8,13 @@ Background:
    	When I enters the email and password and click on sign in button
   	
     
-   @smoke 
+   @smoke @all
   Scenario: Verify My account link should display on landinPage.
   	Then I should be seeing my account link on landing page
   	
-   @smoke 
+   @smoke @all
 	Scenario: Verify my account overview tab 
 	  Then I should be seeing my account link on landing page
 		When I click on my account overview link
 		Then I Should be on my account overview tab
-		
-		
 		

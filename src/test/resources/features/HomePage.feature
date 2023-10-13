@@ -22,3 +22,25 @@ Feature: Homepage Verification
 		When I have opened a web browser and search with noted article name
     And  I click on news tab and check news tab should be loadded
     Then I should see the noted article news in 2 diffrent website and percentage of match should be above 70
+    
+  @all
+  Scenario: Verify Sign up for our email feature
+  	When I click on sign up for our email button
+  	Then I should be see on the Sign up for the First Edition newsletter page
+  	When I enter email address and click on submit button
+  	Then I should see the confirmation message
+  
+  @all
+  Scenario: Verify twitter sharing option with friends
+  	When I click on sign up for our email button
+  	Then I should be see on the Sign up for the First Edition newsletter page
+  	When I click on twitter icon for sharing
+  	Then I should be on twitter page and my url should be "https://twitter.com/" 
+  
+  @all
+  Scenario: Verify facebook sharing option with friends
+  	When I click on sign up for our email button
+  	Then I should be see on the Sign up for the First Edition newsletter page
+  	When I click on facebook icon for sharing
+  	Then I should be on facebook page and my url should be "https://www.facebook.com/"
+  

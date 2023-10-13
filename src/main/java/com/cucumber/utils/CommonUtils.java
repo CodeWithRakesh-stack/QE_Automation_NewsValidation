@@ -14,7 +14,6 @@ import org.jsoup.select.Elements;
 
 public class CommonUtils {
 
-
 	/*
 	 * Method to get the property value
 	 * @param String Property Name
@@ -119,6 +118,27 @@ public class CommonUtils {
         return text;
         
 	}
+	
+	public static String generateDummyEmail() {
+        String[] domains = {"gmail.com", "outlook.com"};
+        Random rand = new Random();
+        int domainIndex = rand.nextInt(domains.length);
+        String randomUsername = generateRandomString(8); // Generate a random username
+        String domain = domains[domainIndex];
+        return randomUsername + "@" + domain;
+    }
 
+    public static String generateRandomString(int length) {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder sb = new StringBuilder(length);
+
+        Random rand = new Random();
+        for (int i = 0; i < length; i++) {
+            int index = rand.nextInt(characters.length());
+            sb.append(characters.charAt(index));
+        }
+
+        return sb.toString();
+    }
 
 }

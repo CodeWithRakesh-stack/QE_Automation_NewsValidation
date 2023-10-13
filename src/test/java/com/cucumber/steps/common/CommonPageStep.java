@@ -44,5 +44,16 @@ public class CommonPageStep {
 		assertTrue(commonPage.checkSearchResultAndVerifySimilarlty
 				(articleName, matchCount, percentage), "Unable to find the same news on two diffrent webiste");
 	}
-
+	
+	@Then("I should be on twitter page and my url should be {string}")
+	public void i_should_be_on_twitter_page(String url){
+	    // Write code here that turns the phrase above into concrete actions
+		assertTrue(commonPage.verifyNewSharingPageLoadded(url), "Unable to verify twitter page");
+	}
+	
+	@Then("I should be on facebook page and my url should be {string}")
+	public void i_should_be_on_facebook_page(String url){
+	    // Write code here that turns the phrase above into concrete actions
+		assertTrue(commonPage.verifyNewSharingPageLoadded(url), "Unable to verify twitter page");
+	}
 }

@@ -45,6 +45,7 @@ public class LoginPage extends PageContext {
 		stepActions.setDataInTextBox(emailInputWebElement, userName);
 		stepActions.setDataInTextBox(passwordElement, password);
 		stepActions.clickElement(loginButton);
+		stepActions.handleCapchaInCaseAppears();
 		}
 		catch (Exception e) {
 			throw new DriverException("Unable to login into application "+e);

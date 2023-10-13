@@ -4,7 +4,11 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 import com.cucumber.actions.StepActions;
@@ -57,10 +61,38 @@ public class LandingPage extends PageContext {
 	@FindBy(xpath = "//div[text()='Account overview']")
 	private WebElement accountOverviewElement;
 		
-
+	@FindBy(xpath = "//*[contains(@href, 'free-news-email')]")
+	private WebElement signupForOurEmailElement;
+	
+	@FindBy(xpath = "//*[text()='Sign up']")
+	private WebElement signupBtnElement;
+	
+	@FindBy(xpath ="//input[@type='email']")
+	private WebElement emailInputElement;
+	
+	@FindBy(xpath="//*[contains(text(),'Subscription Confirmed')]")
+	private WebElement subscriptionConfirmedElement;
+	
+	@FindBy(xpath="//*[contains(@href,'https://twitter.com/intent/tweet?text=Sign+up')]")
+	private WebElement twitterSharingIconEle;
+	
+	@FindBy(xpath="//*[contains(@href,'https://www.facebook.com/dialog/share')]")
+	private WebElement facebookSharingIconEle;
+	
+	@FindBy(xpath="//*[text()='Sign up for the First Edition newsletter: our free daily news email']")
+	private WebElement signUpPageHeaderTitle;
+	
+	@FindBy(xpath="//iframe[@title='Sign up to First Edition']")
+	private WebElement signupFrame;
+	
+	@FindBy(xpath="//iframe[@title='recaptcha challenge expires in two minutes']")
+	private WebElement recapchaFrameEle;
+	
+	@FindBy(xpath ="//div[contains(@class,'help-button-holder')]")
+	private WebElement shadowRootElement;
+	
 	/**
 	 * Function to verify broken image on landing page
-	 * 
 	 * @return count of brokenImage(Integer)
 	 */
 	public int verifyImage() {
@@ -76,21 +108,17 @@ public class LandingPage extends PageContext {
 
 	/**
 	 * Function to get the page title, and also click on the cookies consent accept
-	 * button in case appers.
+	 * button in case appears
 	 * 
 	 * @return page title(String)
 	 * 
 	 */
 	public String getLandinPageTitle() {
-		try {
-			stepActions.waitForFrameToLoadAndSwitchToIt(frame);
-			stepActions.clickElement(cookiesAcceptBtn);
-		} catch (Exception e) {
-			logger.info("The frame element has not been displayed." + e);
-		}
+		stepActions.handleCookiesPopup();
 		return stepActions.getPageTitle();
 	}
-
+	
+	
 	/**
 	 * Function to get random news article name
 	 * 
@@ -143,4 +171,65 @@ public class LandingPage extends PageContext {
 		}
 		}
 	
+	
+
+	/**
+	 * Function to click on Sign up button 
+	 */
+	public void clickOnSignUpButtonForSubscribingOurNewsChannl() {
+		System.out.println(signupForOurEmailElement.isDisplayed());
+		stepActions.clickElement(signupForOurEmailElement);
 	}
+	
+	
+	/**
+	 * Function to check if Signup button display on First Edition email section
+	 * @return true if displayed
+	 */
+	public boolean verifySignupBtnForTheFirstEditionEmailPage() {
+		webDriver.switchTo().defaultContent();
+		System.out.println(signUpPageHeaderTitle.isDisplayed());
+		System.out.print(stepActions.waitForElementToDisplay(signUpPageHeaderTitle));
+		return stepActions.waitForElementToDisplay(signUpPageHeaderTitle);
+	} 
+	
+	/**
+	 * Function to enter email address and click on sign up button
+	 * @param emailAddress
+	 */
+	public void enterEmailAddressAndClickOnSignUpButton(String emailAddress) {
+		stepActions.waitForFrameToLoadAndSwitchToIt(signupFrame);
+		stepActions.setDataInTextBox(emailInputElement, emailAddress);
+		stepActions.clickElementByJS(signupBtnElement);
+		stepActions.handleCapchaInCaseAppears();
+	}
+	
+	
+	/**
+	 * Function to verify Subscription Succecs Message
+	 * @return
+	 */
+	public boolean verifySubscriptionConfirmedSuccecsMessage() {
+		webDriver.switchTo().defaultContent();
+		if(signupFrame.isDisplayed()) {
+			System.out.println(subscriptionConfirmedElement.isDisplayed());
+			stepActions.waitForFrameToLoadAndSwitchToIt(signupFrame);
+		}
+		logger.info("Subcription Succes Message is displayed :->"+subscriptionConfirmedElement.isDisplayed());
+		return stepActions.waitForElementToDisplay(subscriptionConfirmedElement);
+	}
+	
+	/**
+	 * Function to click twitter icon
+	 */
+	public void clickOnTwittericon() {
+		stepActions.clickElementByJS(twitterSharingIconEle);
+	}
+	
+	/**
+	 * Function to click on facebook icon
+	 */
+	public void clickOnFacebookIcon() {
+		stepActions.clickElementByJS(facebookSharingIconEle);
+	}
+}

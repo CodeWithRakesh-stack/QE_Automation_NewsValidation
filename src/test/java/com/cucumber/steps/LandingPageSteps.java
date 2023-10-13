@@ -10,6 +10,7 @@ import com.cucumber.exceptions.DriverException;
 import com.cucumber.helper.Logger.LoggerHelper;
 import com.cucumber.pages.ArticleDetailsPage;
 import com.cucumber.pages.LandingPage;
+import com.cucumber.utils.CommonUtils;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -82,11 +83,62 @@ public class LandingPageSteps {
 	}
 
 	@When("I click on signIn link")
-	public void I_click_on_signIn_link() {
-		landingPage.clickOnSignInlink();
+	public void I_click_on_signIn_link() throws DriverException {
+		try {
+			landingPage.clickOnSignInlink();
+		} catch (Exception e) {
+			throw new DriverException("Unable to click on sign in link", e);
+		}
 	}
-		
-
 	
+	
+	@When("I click on sign up for our email button")
+	public void I_click_on_signUp_email_button() throws DriverException {
+		try {
+			landingPage.clickOnSignUpButtonForSubscribingOurNewsChannl();
+		} catch (Exception e) {
+			throw new DriverException("Unable to click on sign up for the first edition email page", e);
+		}
+	}
+	
+	@Then("I should be see on the Sign up for the First Edition newsletter page")
+	public void i_should_see_the_sign_up_for_the_first_edition_newsletter_page() throws DriverException {
+		Assert.assertTrue(landingPage.verifySignupBtnForTheFirstEditionEmailPage(), "Unable to verify Signup for the first edition email section page");	
+	}
+
+	@When("I enter email address and click on submit button")
+	public void I_enter_email_address_and_click_on_submit_button() throws DriverException {
+		try {
+			landingPage.enterEmailAddressAndClickOnSignUpButton(CommonUtils.generateDummyEmail());
+		} catch (Exception e) {
+			throw new DriverException("Unable to enter data in email address and click continue btn", e);
+		}
+	}
+	
+	@Then("I should see the confirmation message")
+	public void i_should_see_the_succecs_confirmation_message_() throws DriverException {
+		Assert.assertTrue(landingPage.verifySubscriptionConfirmedSuccecsMessage(), "Unable to Confirmation succecs Message");	
+	}
+	
+	@When("I click on twitter icon for sharing")
+	public void I_click_on_twitter_icon_for_sharing() throws DriverException {
+		try {
+			landingPage.clickOnTwittericon();
+		} catch (Exception e) {
+			throw new DriverException("Unable to click on twitter icon",e);
+		}
+	}
+	
+	@Then("I click on facebook icon for sharing")
+	public void I_click_on_facebook_icon_for_sharing() throws DriverException {
+		try {
+			landingPage.clickOnFacebookIcon();
+		} catch (Exception e) {
+			throw new DriverException("Unable to click on facebook icon",e);
+		}
+	}
+	
+
+
 
 }

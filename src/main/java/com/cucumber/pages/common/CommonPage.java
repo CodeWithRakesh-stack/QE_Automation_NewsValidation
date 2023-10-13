@@ -139,9 +139,12 @@ public class CommonPage extends PageContext{
 		}
 		return false;
 		}
-
+	
+	public boolean verifyNewSharingPageLoadded(String url) {
+		stepActions.switchToNewTab();
+		return webDriver.getCurrentUrl().contains(url);
+	}
 
 }
 
 
-;

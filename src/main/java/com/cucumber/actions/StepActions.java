@@ -3,6 +3,7 @@ package com.cucumber.actions;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -198,5 +199,64 @@ public class StepActions {
 			action.sendKeys(Keys.PAGE_UP).build().perform();
 		}
 	}
+	
+	public void switchToNewTab() {
+        // Wait until there are more than one window handles (tabs or windows)
+        WebDriverWait wait = new WebDriverWait(webDriver, 10);
+        wait.until((ExpectedCondition<Boolean>) webDriver ->
+                webDriver.getWindowHandles().size() > 1);
+
+        // Switch to the new tab (window)
+        for (String windowHandle : webDriver.getWindowHandles()) {
+        	webDriver.switchTo().window(windowHandle);
+        }
+    }
+	public void clickOnNextElementWithAction(WebElement element) {
+		try {
+			//element.click();
+			Actions act = new Actions(webDriver);
+			act.sendKeys(Keys.RIGHT).perform();
+			act.click().perform();
+		} catch (Exception e) {
+			throw new WebDriverException("Unable to peform click with action class", e);
+		}
+				
+	}
+	
+	/**
+	 * Function to handle cokkies popup
+	 * 
+	 */
+	public void handleCookiesPopup() {
+		try {
+			waitForFrameToLoadAndSwitchToIt(webDriver.findElement(By.xpath("//iframe[contains(@src, 'theguardian')]")));
+			clickElement(webDriver.findElement(By.xpath("//button[contains(@title, 'happy')]")));
+			webDriver.switchTo().defaultContent();
+		} catch (Exception e) {
+			logger.info("The frame element has not been displayed." + e);
+		}
+	}
+
+	
+	public void handleCapchaInCaseAppears() {
+		try {
+			webDriver.switchTo().defaultContent();
+			handleCookiesPopup();
+			WebElement recapchaFrameEle = webDriver.findElement(By.xpath("//iframe[@title='recaptcha challenge expires in two minutes']"));
+			logger.info("Is recapcha element displayed :->"+ recapchaFrameEle.isDisplayed() );
+			waitForFrameToLoadAndSwitchToIt(recapchaFrameEle);
+			Thread.sleep(5000);
+			clickElement(webDriver.findElement(By.xpath("//div[contains(@class,'help-button-holder')]")));
+			webDriver.switchTo().defaultContent();
+			Thread.sleep(5000);
+			handleCookiesPopup();
+			logger.info("Successfully Capcha handlled");
+		} catch (Exception e) {
+			logger.error("Unable to get the capcha on screen");
+		}
+	}
+	
+	
+	
 
 }

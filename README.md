@@ -22,5 +22,5 @@ Follow these steps to get started with the project:
 
 3. Run the tests using TestNG: `mvn test`
 
-## Usage
-Need to update 
+## Execution Report:
+Post execution report will be genenrate in "QE_Automation_NewsValidation/target/cucumber/" this location
